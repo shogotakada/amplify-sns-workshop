@@ -20,6 +20,9 @@
           "appId": "d3gyy19ciq0b1x",
           "type": "manual"
         }
+      },
+      "api": {
+        "woo": {}
       }
     }
   }

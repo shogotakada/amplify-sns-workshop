@@ -12,6 +12,40 @@
       "AmplifyAppId": "d3gyy19ciq0b1x"
     }
   },
+  "api": {
+    "woo": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "woo0c5079d1"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authwoo0c5079d1"
+            }
+          }
+        },
+        "GraphQLAPIIdOutput": "gv7ddjkouzdhpm7utwubui7rhi",
+        "GraphQLAPIEndpointOutput": "https://uv5jvxyvvzftbmdl3sqlpuc6ba.appsync-api.ap-northeast-1.amazonaws.com/graphql"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "lastPushTimeStamp": "2023-04-22T15:25:23.435Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiwoo"
+      },
+      "lastPushDirHash": "bTS4I8IOaCFyJeOY9/sob/0mlIs="
+    }
+  },
   "auth": {
     "woo0c5079d1": {
       "customAuth": false,
@@ -45,7 +79,7 @@
         "IdentityPoolName": "woo0c5079d1_identitypool_0c5079d1__dev",
         "UserPoolName": "woo0c5079d1_userpool_0c5079d1"
       },
-      "lastPushTimeStamp": "2023-04-22T09:48:01.716Z",
+      "lastPushTimeStamp": "2023-04-22T15:25:22.648Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/auth/woo0c5079d1-cloudformation-template.json",
         "logicalId": "authwoo0c5079d1"
@@ -54,16 +88,15 @@
   },
   "hosting": {
     "amplifyhosting": {
-      "service": "amplifyhosting",
       "providerPlugin": "awscloudformation",
+      "service": "amplifyhosting",
       "type": "manual",
+      "output": {},
+      "lastPushTimeStamp": "2023-04-22T15:25:22.649Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
         "logicalId": "hostingamplifyhosting"
-      },
-      "lastPushTimeStamp": "2023-04-22T09:48:02.209Z",
-      "output": {},
-      "lastPushDirHash": "WuOXUadBBcpXPSI6QYbpc/ORFII="
+      }
     }
   }
 }
