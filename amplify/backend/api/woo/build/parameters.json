@@ -1,0 +1,7 @@
+{
+    "AppSyncApiName": "woo",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-woo-dev-180645-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/13c9feaf0ed541279c330408fceff13928edbce1"
+}

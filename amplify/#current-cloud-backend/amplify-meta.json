@@ -1,0 +1,69 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-woo-dev-180645-authRole",
+      "UnauthRoleArn": "arn:aws:iam::915032583852:role/amplify-woo-dev-180645-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::915032583852:role/amplify-woo-dev-180645-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-woo-dev-180645-deployment",
+      "UnauthRoleName": "amplify-woo-dev-180645-unauthRole",
+      "StackName": "amplify-woo-dev-180645",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:915032583852:stack/amplify-woo-dev-180645/024bdab0-e0ed-11ed-a9e0-06832379e2fb",
+      "AmplifyAppId": "d3gyy19ciq0b1x"
+    }
+  },
+  "auth": {
+    "woo0c5079d1": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "UserPoolId": "ap-northeast-1_T093V1AMo",
+        "AppClientIDWeb": "2r21qsmspvj5rvikspffhc1shd",
+        "AppClientID": "6pjuij4e9otkks29tac8c328fl",
+        "IdentityPoolId": "ap-northeast-1:98173752-0b3d-4012-b4d4-5c438d12b56e",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-northeast-1:915032583852:userpool/ap-northeast-1_T093V1AMo",
+        "IdentityPoolName": "woo0c5079d1_identitypool_0c5079d1__dev",
+        "UserPoolName": "woo0c5079d1_userpool_0c5079d1"
+      },
+      "lastPushTimeStamp": "2023-04-22T09:48:01.716Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/auth/woo0c5079d1-cloudformation-template.json",
+        "logicalId": "authwoo0c5079d1"
+      }
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushTimeStamp": "2023-04-22T09:48:02.209Z",
+      "output": {},
+      "lastPushDirHash": "WuOXUadBBcpXPSI6QYbpc/ORFII="
+    }
+  }
+}
