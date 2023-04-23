@@ -22,4 +22,4 @@ type Post
   owner: String @index(name: "BySpecificOwner", sortKeyFields: ["timestamp"], queryField: "listPostsBySpecificOwner")
   timestamp: Int!
   type: String! @index(name: "SortByTimestamp", sortKeyFields: ["timestamp"], queryField: "listPostsSortedByTimestamp")
-}   
+}    

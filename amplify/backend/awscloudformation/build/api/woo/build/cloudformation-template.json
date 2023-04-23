@@ -373,6 +373,5 @@
         }
       }
     }
-  },
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.6.2\",\"stackType\":\"api-AppSync\",\"metadata\":{}}"
+  }
 }

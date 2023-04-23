@@ -167,7 +167,7 @@
             ]
           },
           "S3DeploymentBucket": "amplify-woo-dev-180645-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/33cbd395889695e21ac7cd67db7b20523ae482ef",
+          "S3DeploymentRootKey": "amplify-appsync-files/022cd6c80c0085a815833a16aa8945f63b9ca109",
           "env": "dev"
         }
       }
