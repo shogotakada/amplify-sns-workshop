@@ -56,3 +56,29 @@ export const onDeletePost = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFollowRelationship = /* GraphQL */ `
+  subscription OnCreateFollowRelationship(
+    $filter: ModelSubscriptionFollowRelationshipFilterInput
+    $followerId: String
+  ) {
+    onCreateFollowRelationship(filter: $filter, followerId: $followerId) {
+      followeeId
+      followerId
+      timestamp
+      id
+    }
+  }
+`;
+export const onDeleteFollowRelationship = /* GraphQL */ `
+  subscription OnDeleteFollowRelationship(
+    $filter: ModelSubscriptionFollowRelationshipFilterInput
+    $followerId: String
+  ) {
+    onDeleteFollowRelationship(filter: $filter, followerId: $followerId) {
+      followeeId
+      followerId
+      timestamp
+      id
+    }
+  }
+`;

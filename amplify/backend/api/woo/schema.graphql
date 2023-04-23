@@ -22,4 +22,21 @@ type Post
   owner: String @index(name: "BySpecificOwner", sortKeyFields: ["timestamp"], queryField: "listPostsBySpecificOwner")
   timestamp: Int!
   type: String! @index(name: "SortByTimestamp", sortKeyFields: ["timestamp"], queryField: "listPostsSortedByTimestamp")
-}    
+}   
+
+type FollowRelationship
+  @model (
+    mutations: {create: "createFollowRelationship", delete: "deleteFollowRelationship", update: null}
+    timestamps: null
+  )
+  @auth(rules: [
+		{allow: owner, ownerField:"followerId", provider: userPools, operations:[read, create, delete]},
+		{allow: private, provider: userPools, operations:[read]}
+	])
+{
+	followeeId: ID! @index(name: "BySpecificfolloweeID", sortKeyFields: ["followerId"])
+	followerId: ID! 
+	timestamp: Int!
+}
+
+

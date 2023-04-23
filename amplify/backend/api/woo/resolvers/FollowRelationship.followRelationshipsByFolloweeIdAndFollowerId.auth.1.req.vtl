@@ -1,0 +1,51 @@
+## [Start] Authorization Steps. **
+$util.qr($ctx.stash.put("hasAuth", true))
+#set( $isAuthorized = false )
+#set( $primaryFieldMap = {} )
+#if( $util.authType() == "User Pool Authorization" )
+  #set( $isAuthorized = true )
+  #set( $followerIdClaim = $util.defaultIfNull($ctx.identity.claims.get("sub"), null) )
+  #set( $currentClaim1 = $util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), null)) )
+  #if( !$util.isNull($followerIdClaim) && !$util.isNull($currentClaim1) )
+    #set( $followerIdClaim = "$followerIdClaim::$currentClaim1" )
+    #set( $ownerClaimsList0 = [] )
+    $util.qr($ownerClaimsList0.add($util.defaultIfNull($ctx.identity.claims.get("sub"), null)))
+    $util.qr($ownerClaimsList0.add($util.defaultIfNull($ctx.identity.claims.get("username"), $util.defaultIfNull($ctx.identity.claims.get("cognito:username"), null))))
+    $util.qr($ownerClaimsList0.add($followerIdClaim))
+    #if( !$util.isNull($ctx.args.followerId) )
+      #if( $util.isString($ctx.args.followerId) )
+        #set( $followerIdCondition = (($followerIdClaim == $ctx.args.followerId) || $ownerClaimsList0.contains($ctx.args.followerId)) )
+      #else
+        #set( $followerIdCondition = ($followerIdClaim == $util.defaultIfNull($ctx.args.followerId.get("eq"), null) || $ownerClaimsList0.contains($util.defaultIfNull($ctx.args.followerId.get("eq"), null))) )
+        #if( !$followerIdCondition )
+          #set( $entityValues = 0 )
+          #foreach( $argEntity in $ctx.args.followerId.get("eq") )
+            #if( $ownerClaimsList0.contains($argEntity) )
+              #set( $entityValues = $entityValues + 1 )
+            #end
+          #end
+          #if( $entityValues == $ctx.args.followerId.get("eq").size() )
+            #set( $followerIdCondition = true )
+          #end
+        #end
+      #end
+      #if( $followerIdCondition )
+        #set( $isAuthorized = true )
+        $util.qr($ctx.stash.put("authFilter", null))
+      #end
+    #else
+      $util.qr($primaryFieldMap.put("followerId", $ownerClaimsList0))
+    #end
+  #end
+  #if( !$isAuthorized && $util.isNull($ctx.stash.authFilter) && !$primaryFieldMap.isEmpty() )
+    #foreach( $entry in $primaryFieldMap.entrySet() )
+      $util.qr($ctx.args.put($entry.key, $entry.value))
+      #set( $isAuthorized = true )
+    #end
+  #end
+#end
+#if( !$isAuthorized && $util.isNull($ctx.stash.authFilter) )
+$util.unauthorized()
+#end
+$util.toJson({"version":"2018-05-29","payload":{}})
+## [End] Authorization Steps. **

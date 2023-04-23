@@ -59,6 +59,37 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
+export const getFollowRelationship = /* GraphQL */ `
+  query GetFollowRelationship($id: ID!) {
+    getFollowRelationship(id: $id) {
+      followeeId
+      followerId
+      timestamp
+      id
+    }
+  }
+`;
+export const listFollowRelationships = /* GraphQL */ `
+  query ListFollowRelationships(
+    $filter: ModelFollowRelationshipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFollowRelationships(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        followeeId
+        followerId
+        timestamp
+        id
+      }
+      nextToken
+    }
+  }
+`;
 export const listPostsBySpecificOwner = /* GraphQL */ `
   query ListPostsBySpecificOwner(
     $owner: String!
@@ -110,6 +141,33 @@ export const listPostsSortedByTimestamp = /* GraphQL */ `
         owner
         timestamp
         type
+      }
+      nextToken
+    }
+  }
+`;
+export const followRelationshipsByFolloweeIdAndFollowerId = /* GraphQL */ `
+  query FollowRelationshipsByFolloweeIdAndFollowerId(
+    $followeeId: ID!
+    $followerId: ModelIDKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelFollowRelationshipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    followRelationshipsByFolloweeIdAndFollowerId(
+      followeeId: $followeeId
+      followerId: $followerId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        followeeId
+        followerId
+        timestamp
+        id
       }
       nextToken
     }

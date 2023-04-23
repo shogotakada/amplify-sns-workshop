@@ -14,6 +14,7 @@
   },
   "api": {
     "woo": {
+      "service": "AppSync",
       "dependsOn": [
         {
           "attributes": [
@@ -34,16 +35,16 @@
           }
         },
         "GraphQLAPIIdOutput": "gv7ddjkouzdhpm7utwubui7rhi",
-        "GraphQLAPIEndpointOutput": "https://uv5jvxyvvzftbmdl3sqlpuc6ba.appsync-api.ap-northeast-1.amazonaws.com/graphql"
+        "GraphQLAPIEndpointOutput": "http://192.168.1.7:20002/graphql",
+        "GraphQLAPIKeyOutput": null
       },
       "providerPlugin": "awscloudformation",
-      "service": "AppSync",
-      "lastPushTimeStamp": "2023-04-23T06:48:54.675Z",
+      "lastPushTimeStamp": "2023-04-23T08:09:14.483Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiwoo"
       },
-      "lastPushDirHash": "qRYfemt6thWaQWNcRGezNPYHOVU="
+      "testMode": true
     }
   },
   "auth": {
@@ -79,7 +80,7 @@
         "IdentityPoolName": "woo0c5079d1_identitypool_0c5079d1__dev",
         "UserPoolName": "woo0c5079d1_userpool_0c5079d1"
       },
-      "lastPushTimeStamp": "2023-04-23T06:48:54.228Z",
+      "lastPushTimeStamp": "2023-04-23T07:49:57.706Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/auth/woo0c5079d1-cloudformation-template.json",
         "logicalId": "authwoo0c5079d1"
@@ -92,7 +93,7 @@
       "service": "amplifyhosting",
       "type": "manual",
       "output": {},
-      "lastPushTimeStamp": "2023-04-23T06:48:54.231Z",
+      "lastPushTimeStamp": "2023-04-23T07:49:57.707Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-woo-dev-180645-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
         "logicalId": "hostingamplifyhosting"

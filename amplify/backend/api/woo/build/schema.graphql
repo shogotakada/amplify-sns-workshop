@@ -15,6 +15,13 @@ type Post {
   type: String!
 }
 
+type FollowRelationship {
+  followeeId: ID!
+  followerId: ID!
+  timestamp: Int!
+  id: ID!
+}
+
 input ModelStringInput {
   ne: String
   eq: String
@@ -184,8 +191,11 @@ type Query {
   listTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String): ModelTodoConnection
   getPost(id: ID!): Post
   listPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection
+  getFollowRelationship(id: ID!): FollowRelationship
+  listFollowRelationships(filter: ModelFollowRelationshipFilterInput, limit: Int, nextToken: String): ModelFollowRelationshipConnection
   listPostsBySpecificOwner(owner: String!, timestamp: ModelIntKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection
   listPostsSortedByTimestamp(type: String!, timestamp: ModelIntKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection
+  followRelationshipsByFolloweeIdAndFollowerId(followeeId: ID!, followerId: ModelIDKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelFollowRelationshipFilterInput, limit: Int, nextToken: String): ModelFollowRelationshipConnection
 }
 
 input ModelTodoConditionInput {
@@ -218,6 +228,8 @@ type Mutation {
   deleteTodo(input: DeleteTodoInput!, condition: ModelTodoConditionInput): Todo
   createPost(input: CreatePostInput!, condition: ModelPostConditionInput): Post
   deletePost(input: DeletePostInput!, condition: ModelPostConditionInput): Post
+  createFollowRelationship(input: CreateFollowRelationshipInput!, condition: ModelFollowRelationshipConditionInput): FollowRelationship
+  deleteFollowRelationship(input: DeleteFollowRelationshipInput!, condition: ModelFollowRelationshipConditionInput): FollowRelationship
 }
 
 input ModelSubscriptionTodoFilterInput {
@@ -234,6 +246,8 @@ type Subscription {
   onDeleteTodo(filter: ModelSubscriptionTodoFilterInput): Todo @aws_subscribe(mutations: ["deleteTodo"])
   onCreatePost(filter: ModelSubscriptionPostFilterInput): Post @aws_subscribe(mutations: ["createPost"])
   onDeletePost(filter: ModelSubscriptionPostFilterInput): Post @aws_subscribe(mutations: ["deletePost"])
+  onCreateFollowRelationship(filter: ModelSubscriptionFollowRelationshipFilterInput, followerId: String): FollowRelationship @aws_subscribe(mutations: ["createFollowRelationship"])
+  onDeleteFollowRelationship(filter: ModelSubscriptionFollowRelationshipFilterInput, followerId: String): FollowRelationship @aws_subscribe(mutations: ["deleteFollowRelationship"])
 }
 
 type ModelPostConnection {
@@ -283,6 +297,47 @@ input ModelSubscriptionPostFilterInput {
   or: [ModelSubscriptionPostFilterInput]
 }
 
+type ModelFollowRelationshipConnection {
+  items: [FollowRelationship]!
+  nextToken: String
+}
+
+input ModelFollowRelationshipFilterInput {
+  followeeId: ModelIDInput
+  followerId: ModelIDInput
+  timestamp: ModelIntInput
+  and: [ModelFollowRelationshipFilterInput]
+  or: [ModelFollowRelationshipFilterInput]
+  not: ModelFollowRelationshipFilterInput
+}
+
+input ModelFollowRelationshipConditionInput {
+  followeeId: ModelIDInput
+  followerId: ModelIDInput
+  timestamp: ModelIntInput
+  and: [ModelFollowRelationshipConditionInput]
+  or: [ModelFollowRelationshipConditionInput]
+  not: ModelFollowRelationshipConditionInput
+}
+
+input CreateFollowRelationshipInput {
+  followeeId: ID!
+  followerId: ID!
+  timestamp: Int!
+  id: ID
+}
+
+input DeleteFollowRelationshipInput {
+  id: ID!
+}
+
+input ModelSubscriptionFollowRelationshipFilterInput {
+  followeeId: ModelSubscriptionIDInput
+  timestamp: ModelSubscriptionIntInput
+  and: [ModelSubscriptionFollowRelationshipFilterInput]
+  or: [ModelSubscriptionFollowRelationshipFilterInput]
+}
+
 input ModelIntKeyConditionInput {
   eq: Int
   le: Int
@@ -290,5 +345,15 @@ input ModelIntKeyConditionInput {
   ge: Int
   gt: Int
   between: [Int]
+}
+
+input ModelIDKeyConditionInput {
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  between: [ID]
+  beginsWith: ID
 }
 
