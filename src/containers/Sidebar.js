@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+
 import {
+    Box,
   Button,
   Drawer,
   List,
@@ -9,11 +10,8 @@ import {
   ListItemText,
   TextField,
   ListItemIcon,
-} from '@material-ui/core';
-import {
-  Person as PersonIcon,
-  Public as PublicIcon,
-} from '@material-ui/icons';
+} from '@mui/material';
+
 
 import {Auth, API, graphqlOperation } from 'aws-amplify';
 
@@ -23,27 +21,9 @@ import { useHistory } from 'react-router';
 const drawerWidth = 340;
 const MAX_POST_CONTENT_LENGTH = 140;
 
-const useStyles = makeStyles(theme => ({
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    position: 'relative',
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    position: 'relative',
-  },
-  toolbar: theme.mixins.toolbar,
-  textField: {
-    width: drawerWidth,
-  },
-  list: {
-    width: 300,
-  },
-}));
+
 
 export default function Sidebar({activeListItem}) {
-  const classes = useStyles();
   const history = useHistory();
 
   const [value, setValue] = React.useState('');
@@ -63,9 +43,10 @@ export default function Sidebar({activeListItem}) {
 
   const onPost = async () => {
     const res = await API.graphql(graphqlOperation(createPost, { input: {
+      id: 1111,
       type: 'post',
       content: value,
-      timestamp: Math.floor(Date.now() / 1000),
+      timestamp: 200,
     }})); 
 
     console.log(res)
@@ -80,14 +61,15 @@ export default function Sidebar({activeListItem}) {
 
   return (
     <Drawer
-      className={classes.drawer}
+    sx={{    width: drawerWidth,
+        flexShrink: 0,
+        position: 'relative',}}
       variant="permanent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
+
+      
       anchor="left"
     >
-      <div className={classes.toolbar} />
+      <Box />
       <List>
         <ListItem
           button
@@ -100,7 +82,6 @@ export default function Sidebar({activeListItem}) {
           key='global-timeline'
         >
           <ListItemIcon>
-            <PublicIcon />
           </ListItemIcon>
           <ListItemText primary="Global Timeline" />
         </ListItem>
@@ -115,7 +96,6 @@ export default function Sidebar({activeListItem}) {
           key='profile'
         >
           <ListItemIcon>
-            <PersonIcon />
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </ListItem>
@@ -127,7 +107,7 @@ export default function Sidebar({activeListItem}) {
               id="post-input"
               label="Type your post!"
               multiline
-              rowsMax="8"
+              rowsmax="8"
               variant="filled"
               value={value}
               onChange={handleChange}

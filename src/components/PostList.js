@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import {
+Box,
+  styled,
   Button,
   List,
   ListItem,
@@ -11,53 +12,46 @@ import {
   Avatar,
   Typography,
   CircularProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { useHistory } from 'react-router';
 import moment from 'moment';
 
-const useStyles = makeStyles(theme => ({
-  listRoot: {
+
+const ListRoot = styled(Box)({
     width: '100%',
     wordBreak: 'break-all',
     overflow: 'scroll',
     borderRight: '1px solid #37444C',
-  },
-  alignCenter: {
-    textAlign: 'center',
-  },
-  loader: {
+  });
+
+
+  const Loader = styled(Box)({
     textAlign: 'center',
     paddingTop: 20,
-  },
-  maxWidth: {
-    width: '100%',
-  },
-  listHeader: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 1200,
-    backgroundColor: '#15202B',
-    borderBottom: '1px solid #37444C',
-  },
-  clickable: {
-    cursor: 'pointer',
-  }
-}));
+  });
+
+
+
 
 export default function PostList({ isLoading, posts, getAdditionalPosts, listHeaderTitle, listHeaderTitleButton }) {
-  const classes = useStyles();
   return (
-    <div className={classes.listRoot}>
+    <ListRoot>
       {isLoading ?
-        <div className={classes.loader}>
+        <Loader>
           <CircularProgress size={25} />
-        </div>
+        </Loader>
         :
         <List disablePadding>
           <ListItem
             alignItems="flex-start"
-            className={classes.listHeader}
+            sx={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 1200,
+                backgroundColor: '#15202B',
+                borderBottom: '1px solid #37444C',
+            }}
           >
             <Typography
               variant='h5'
@@ -76,23 +70,24 @@ export default function PostList({ isLoading, posts, getAdditionalPosts, listHea
           ))}
           <ListItem
             alignItems="flex-start"
-            className={classes.alignCenter}
             key='loadmore'
+            sx={{
+                textAlign: 'center',
+            }}
           >
             <ListItemText
               primary={
-                <Button variant='outlined' onClick={() => getAdditionalPosts()} className={classes.maxWidth}> Read More </Button>
+                <Button variant='outlined' onClick={() => getAdditionalPosts()}sx={ {width: '100%'} }> Read More </Button>
               }
             />
           </ListItem>
         </List>
       }
-    </div>
+    </ListRoot>
   )
 }
 
 function PostItem({ post }) {
-  const classes = useStyles();
   const history = useHistory();
   const now = moment();
   console.log(now)
@@ -112,9 +107,9 @@ function PostItem({ post }) {
   return (
     <ListItem alignItems='flex-start' key={post.id}>
       <ListItemAvatar>
-        <div className={classes.clickable} onClick={() => history.push('/' + post.owner)}>
+        <Box  sx={{cursor: 'pointer'} } onClick={() => history.push('/' + post.owner)}>
           <Avatar alt={post.owner} src='/' />
-        </div>
+        </Box>
       </ListItemAvatar>
       <ListItemText
         primary={
