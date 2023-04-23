@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 import {
-Box,
+  Box,
   styled,
   Button,
   List,
@@ -12,57 +12,53 @@ Box,
   Avatar,
   Typography,
   CircularProgress,
-} from '@mui/material';
+} from "@mui/material";
 
-import { useHistory } from 'react-router';
-import moment from 'moment';
-
+import { useHistory } from "react-router";
+import moment from "moment";
 
 const ListRoot = styled(Box)({
-    width: '100%',
-    wordBreak: 'break-all',
-    overflow: 'scroll',
-    borderRight: '1px solid #37444C',
-  });
+  width: "100%",
+  wordBreak: "break-all",
+  overflow: "scroll",
+  borderRight: "1px solid #37444C",
+});
 
+const Loader = styled(Box)({
+  textAlign: "center",
+  paddingTop: 20,
+});
 
-  const Loader = styled(Box)({
-    textAlign: 'center',
-    paddingTop: 20,
-  });
-
-
-
-
-export default function PostList({ isLoading, posts, getAdditionalPosts, listHeaderTitle, listHeaderTitleButton }) {
+export default function PostList({
+  isLoading,
+  posts,
+  getAdditionalPosts,
+  listHeaderTitle,
+  listHeaderTitleButton,
+}) {
   return (
     <ListRoot>
-      {isLoading ?
+      {isLoading ? (
         <Loader>
           <CircularProgress size={25} />
         </Loader>
-        :
+      ) : (
         <List disablePadding>
           <ListItem
             alignItems="flex-start"
             sx={{
-                position: 'sticky',
-                top: 0,
-                zIndex: 1200,
-                backgroundColor: '#15202B',
-                borderBottom: '1px solid #37444C',
+              position: "sticky",
+              top: 0,
+              zIndex: 1200,
+              borderBottom: "1px solid #37444C",
             }}
           >
-            <Typography
-              variant='h5'
-              fontWeight="fontWeightBold"
-              maxWidth
-            >
+            <Typography variant="h5" fontWeight="fontWeightBold" maxWidth>
               {listHeaderTitle}
               {listHeaderTitleButton && listHeaderTitleButton}
             </Typography>
           </ListItem>
-          {posts.map(post => (
+          {posts.map((post) => (
             <span>
               <PostItem post={post} />
               <Divider component="li" />
@@ -70,67 +66,79 @@ export default function PostList({ isLoading, posts, getAdditionalPosts, listHea
           ))}
           <ListItem
             alignItems="flex-start"
-            key='loadmore'
+            key="loadmore"
             sx={{
-                textAlign: 'center',
+              textAlign: "center",
             }}
           >
             <ListItemText
               primary={
-                <Button variant='outlined' onClick={() => getAdditionalPosts()}sx={ {width: '100%'} }> Read More </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => getAdditionalPosts()}
+                  sx={{ width: "100%" }}
+                >
+                  {" "}
+                  Read More{" "}
+                </Button>
               }
             />
           </ListItem>
         </List>
-      }
+      )}
     </ListRoot>
-  )
+  );
 }
 
 function PostItem({ post }) {
   const history = useHistory();
   const now = moment();
-  console.log(now)
+  console.log(now);
 
   const calcTimestampDiff = (timestamp) => {
-    const scales = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds'];
+    const scales = [
+      "years",
+      "months",
+      "weeks",
+      "days",
+      "hours",
+      "minutes",
+      "seconds",
+    ];
 
-    for (let i=0; i < scales.length; i++){
+    for (let i = 0; i < scales.length; i++) {
       const scale = scales[i];
       const diff = moment(now).diff(timestamp * 1000, scale);
-      if( diff > 0) return diff + scale.charAt(0)
+      if (diff > 0) return diff + scale.charAt(0);
     }
 
-    return 0 + scales[scales.length - 1].charAt(0)
-  }
+    return 0 + scales[scales.length - 1].charAt(0);
+  };
 
   return (
-    <ListItem alignItems='flex-start' key={post.id}>
+    <ListItem alignItems="flex-start" key={post.id}>
       <ListItemAvatar>
-        <Box  sx={{cursor: 'pointer'} } onClick={() => history.push('/' + post.owner)}>
-          <Avatar alt={post.owner} src='/' />
+        <Box
+          sx={{ cursor: "pointer" }}
+          onClick={() => history.push("/" + post.owner)}
+        >
+          <Avatar alt={post.owner} src="/" />
         </Box>
       </ListItemAvatar>
       <ListItemText
         primary={
           <React.Fragment>
             {post.owner}
-            <Typography
-              color='textSecondary'
-              display='inline'
-            >
-              {' ' + String.fromCharCode(183) + ' ' + calcTimestampDiff(post.timestamp)}
+            <Typography color="textSecondary" display="inline">
+              {" " +
+                String.fromCharCode(183) +
+                " " +
+                calcTimestampDiff(post.timestamp)}
             </Typography>
           </React.Fragment>
         }
-        secondary={
-          <Typography
-            color='textPrimary'
-          >
-            {post.content}
-          </Typography>
-        }
+        secondary={<Typography color="textPrimary">{post.content}</Typography>}
       />
     </ListItem>
-  )
+  );
 }
